@@ -61,7 +61,7 @@ export default function WaitlistSection() {
     <section id="waitlist" className="px-5 py-20 md:py-28 bg-soft-bg">
       <div className="w-full max-w-[1100px] mx-auto">
         <h2 className="font-serif text-[1.625rem] md:text-[2.25rem] leading-snug font-bold text-foreground mb-4 break-keep">
-          7월 런칭, 먼저 경험하세요.
+          6월 런칭, 먼저 경험하세요.
         </h2>
 
         <p className="text-base md:text-lg leading-relaxed text-foreground/70 max-w-2xl mb-10 md:mb-14 break-keep">
@@ -77,8 +77,8 @@ export default function WaitlistSection() {
             </p>
             <p className="text-base leading-relaxed text-foreground/70 break-keep">
               {status === "success"
-                ? "7월 중 초대장을 보내드립니다. 제품 개발 소식을 먼저 받고 싶으시면 방금 보낸 확인 메일을 열어주세요."
-                : "입력하신 이메일로 이미 등록되어 있습니다. 7월 런칭 시 초대장을 보내드리겠습니다."}
+                ? "6월 중 초대장을 보내드립니다. 제품 개발 소식을 먼저 받고 싶으시면 방금 보낸 확인 메일을 열어주세요."
+                : "입력하신 이메일로 이미 등록되어 있습니다. 6월 런칭 시 초대장을 보내드리겠습니다."}
             </p>
           </div>
         ) : (

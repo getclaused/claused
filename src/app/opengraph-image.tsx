@@ -90,7 +90,7 @@ export default function OGImage() {
           }}
         >
           <span>claused.kr</span>
-          <span>Pie Nest Inc. · 2026.07 런칭</span>
+          <span>Pie Nest Inc. · 2026.06 런칭</span>
         </div>
       </div>
     ),

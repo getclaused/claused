@@ -55,7 +55,7 @@ async function sendConfirmationEmail(email: string) {
       <p style="font-size:15px;line-height:1.7;color:#555;margin:0 0 24px;">
         안녕하세요,<br/><br/>
         Claused 베타 테스터로 신청해주셔서 감사합니다.<br/>
-        2026년 7월 런칭 시 가장 먼저 초대장을 보내드리겠습니다.<br/><br/>
+        2026년 6월 런칭 시 가장 먼저 초대장을 보내드리겠습니다.<br/><br/>
         베타 테스터에게는 <strong style="color:#8B0000;">런칭 후 6개월간 50% 할인</strong>과<br/>
         파운더 직접 1:1 피드백 세션이 제공됩니다.
       </p>

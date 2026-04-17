@@ -50,7 +50,7 @@ export default function HeroSection() {
 
         {/* Trust strip */}
         <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-foreground/50">
-          <span>2026.07 런칭 예정</span>
+          <span>2026.06 런칭 예정</span>
           <span className="hidden sm:inline" aria-hidden="true">·</span>
           <span>얼리버드 50% 할인</span>
           <span className="hidden sm:inline" aria-hidden="true">·</span>

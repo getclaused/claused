@@ -6,11 +6,12 @@ const cards = [
     description: "계약서 5건 × 상담료 30만 원. 매달 150만 원이 그냥 증발합니다.",
   },
   {
-    symbol: "?!",
+    symbol: "71.3",
+    unit: "%",
     period: "",
     title: "ChatGPT의 한계",
     description:
-      "한국 법을 모르는 AI가 엉뚱한 답을 합니다. 할루시네이션은 위험합니다.",
+      "법률 질문 10개 중 7개에서 할루시네이션이 발생합니다.",
   },
   {
     symbol: "₩∞",
@@ -31,7 +32,7 @@ export default function ProblemSection() {
           ChatGPT는 믿을 수 없습니다.
         </h2>
 
-        <p className="text-base md:text-lg leading-relaxed text-foreground/70 max-w-2xl mb-12 md:mb-16 break-keep">
+        <p className="text-base md:text-lg leading-relaxed text-foreground/70 max-w-xl mb-12 md:mb-16 break-keep">
           계약서 한 장 검토에 변호사 상담료 ₩300,000.
           바쁘게 일하는 당신이 매달 계약서 5건을 마주친다면
           월 ₩1,500,000이 그냥 증발합니다.
@@ -47,6 +48,11 @@ export default function ProblemSection() {
             >
               <p className="font-mono text-2xl md:text-3xl font-medium text-accent-red mb-1">
                 {card.symbol}
+                {"unit" in card && card.unit && (
+                  <span className="text-lg md:text-xl ml-0.5">
+                    {card.unit}
+                  </span>
+                )}
                 {card.period && (
                   <span className="text-base text-foreground/40 ml-1">
                     {card.period}

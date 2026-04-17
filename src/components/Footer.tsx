@@ -10,7 +10,7 @@ export default function Footer() {
         </p>
         <nav aria-label="Footer navigation" className="flex gap-6">
           <a
-            href="https://k-saju.com"
+            href="https://k-saju.app"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-foreground/60 transition-colors"
