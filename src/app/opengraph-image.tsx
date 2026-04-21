@@ -10,14 +10,13 @@ export default function OGImage() {
     (
       <div
         style={{
-          background: "#FFFFFF",
+          background: "#0A1628",
           width: "100%",
           height: "100%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          fontFamily: "serif",
         }}
       >
         {/* Top accent line */}
@@ -27,20 +26,20 @@ export default function OGImage() {
             top: 0,
             left: 0,
             right: 0,
-            height: "6px",
-            background: "#8B0000",
+            height: "4px",
+            background: "#2563EB",
             display: "flex",
           }}
         />
 
-        {/* Logo text */}
+        {/* Logo */}
         <div
           style={{
-            fontSize: 28,
-            fontWeight: 400,
-            color: "#A87D2E",
-            letterSpacing: "0.15em",
-            marginBottom: "24px",
+            fontSize: 20,
+            fontWeight: 600,
+            color: "#60A5FA",
+            letterSpacing: "0.08em",
+            marginBottom: "32px",
             display: "flex",
           }}
         >
@@ -50,11 +49,11 @@ export default function OGImage() {
         {/* Main title */}
         <div
           style={{
-            fontSize: 56,
+            fontSize: 52,
             fontWeight: 700,
-            color: "#0F1419",
-            lineHeight: 1.3,
-            marginBottom: "24px",
+            color: "#F9FAFB",
+            lineHeight: 1.25,
+            marginBottom: "20px",
             display: "flex",
             flexDirection: "column",
           }}
@@ -66,9 +65,9 @@ export default function OGImage() {
         {/* Subtitle */}
         <div
           style={{
-            fontSize: 24,
-            color: "#555",
-            lineHeight: 1.6,
+            fontSize: 22,
+            color: "#9CA3AF",
+            lineHeight: 1.5,
             display: "flex",
           }}
         >
@@ -85,8 +84,8 @@ export default function OGImage() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            fontSize: 18,
-            color: "#999",
+            fontSize: 16,
+            color: "#6B7280",
           }}
         >
           <span>claused.kr</span>

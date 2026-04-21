@@ -1,8 +1,11 @@
+import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
+import DemoSection from "@/components/DemoSection";
 import ProblemSection from "@/components/ProblemSection";
 import SolutionSection from "@/components/SolutionSection";
 import PricingSection from "@/components/PricingSection";
 import TrustSection from "@/components/TrustSection";
+import FAQSection from "@/components/FAQSection";
 import WaitlistSection from "@/components/WaitlistSection";
 import Footer from "@/components/Footer";
 
@@ -35,12 +38,15 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <Navigation />
       <main>
         <HeroSection />
+        <DemoSection />
         <ProblemSection />
         <SolutionSection />
         <PricingSection />
         <TrustSection />
+        <FAQSection />
         <WaitlistSection />
       </main>
       <Footer />

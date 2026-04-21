@@ -1,64 +1,67 @@
 "use client";
 
+import Button from "@/components/ui/Button";
+import Container from "@/components/ui/Container";
+import Badge from "@/components/ui/Badge";
+
 export default function HeroSection() {
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center px-5 py-20 md:py-32">
-      {/* Subtle top accent */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-accent-red" />
+    <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
+      {/* Subtle gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-bg-secondary/50 to-bg-primary pointer-events-none" />
 
-      <div className="w-full max-w-[1100px] mx-auto">
-        {/* Logo */}
-        <p className="font-mono text-sm tracking-[0.2em] text-accent-gold mb-10 md:mb-14">
-          CLAUSED
-        </p>
+      <Container className="relative">
+        <div className="max-w-3xl">
+          {/* Status badge */}
+          <Badge variant="info" className="mb-6">
+            2026.06 런칭 예정 · 얼리버드 50% 할인
+          </Badge>
 
-        {/* Headline */}
-        <h1 className="font-serif text-[2rem] leading-[1.4] md:text-[3.25rem] md:leading-[1.35] font-bold text-foreground mb-6 md:mb-8 max-w-2xl break-keep">
-          당신의 계약서,
-          <br />
-          변호사 없이도 안전하게.
-        </h1>
+          {/* Headline */}
+          <h1 className="text-[2.25rem] leading-[1.2] md:text-[3.5rem] md:leading-[1.15] font-bold tracking-tight text-text-primary mb-6 break-keep">
+            당신의 계약서,
+            <br />
+            <span className="text-accent">변호사 없이도</span> 안전하게.
+          </h1>
 
-        {/* Sub copy */}
-        <p className="text-base md:text-lg leading-relaxed text-foreground/70 max-w-xl mb-10 md:mb-12 break-keep">
-          AI가 계약서의 독소조항을 찾아내고,
-          <br className="hidden md:block" />
-          당신에게 유리한 대안 문구를 제시합니다.
-          <br className="hidden md:block" />
-          변호사 상담 한 번 값으로 1년간 무제한으로.
-        </p>
+          {/* Sub copy */}
+          <p className="text-lg md:text-xl leading-relaxed text-text-tertiary max-w-xl mb-10 break-keep">
+            AI가 계약서의 독소조항을 찾아내고,
+            당신에게 유리한 대안 문구를 제시합니다.
+            변호사 상담 한 번 값으로 1년간 무제한.
+          </p>
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-14 md:mb-20">
-          <button
-            onClick={() => scrollTo("waitlist")}
-            className="inline-flex items-center justify-center h-13 px-8 bg-accent-red text-white font-medium text-base rounded-sm hover:bg-accent-red/90 transition-colors cursor-pointer"
-          >
-            베타 테스터 신청하기 →
-          </button>
-          <button
-            onClick={() => scrollTo("problem")}
-            className="inline-flex items-center justify-center h-13 px-8 border border-foreground/15 text-foreground font-medium text-base rounded-sm hover:border-foreground/30 transition-colors cursor-pointer"
-          >
-            어떤 서비스인가요? ↓
-          </button>
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row gap-3 mb-12">
+            <Button size="lg" onClick={() => scrollTo("waitlist")}>
+              베타 테스터 신청하기
+            </Button>
+            <Button variant="secondary" size="lg" onClick={() => scrollTo("demo")}>
+              라이브 데모 보기
+            </Button>
+          </div>
+
+          {/* Trust strip */}
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-text-quaternary">
+            <span className="flex items-center gap-1.5">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-success-text"><path d="M3 7l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              CISO 출신 파운더
+            </span>
+            <span className="flex items-center gap-1.5">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-success-text"><path d="M3 7l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              변호사 자문 검수
+            </span>
+            <span className="flex items-center gap-1.5">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-success-text"><path d="M3 7l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              데이터 AI 학습 미사용
+            </span>
+          </div>
         </div>
-
-        {/* Trust strip */}
-        <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-foreground/50">
-          <span>2026.06 런칭 예정</span>
-          <span className="hidden sm:inline" aria-hidden="true">·</span>
-          <span>얼리버드 50% 할인</span>
-          <span className="hidden sm:inline" aria-hidden="true">·</span>
-          <span>CISO 출신 파운더</span>
-          <span className="hidden sm:inline" aria-hidden="true">·</span>
-          <span>변호사 자문 검수</span>
-        </div>
-      </div>
+      </Container>
     </section>
   );
 }
