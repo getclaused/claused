@@ -1,5 +1,31 @@
 @import "tailwindcss";
 
+/* ── Pretendard Static Overrides (Samsung Internet compat) ──
+   These @font-face declarations provide exact-weight files that
+   override the Variable font on browsers with VF axis bugs.
+   Browsers prefer static fonts when weight matches exactly. ── */
+@font-face {
+  font-family: "__pretendard_static";
+  src: url("/fonts/Pretendard-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "__pretendard_static";
+  src: url("/fonts/Pretendard-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "__pretendard_static";
+  src: url("/fonts/Pretendard-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ═══════════════════════════════════════════════════════════
    Claused LegalTech Design System — Token Layer
    ═══════════════════════════════════════════════════════════ */
@@ -116,7 +142,7 @@ html {
 body {
   background: var(--color-bg-primary);
   color: var(--color-text-primary);
-  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "__pretendard_static", var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
