@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import Container from "@/components/ui/Container";
 import RiskBadge from "@/components/RiskBadge";
 import IssueCard from "@/components/IssueCard";
+import DownloadButton from "@/components/DownloadButton";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import type { AnalysisResult, RiskLevel } from "@/lib/supabase/database.types";
 
@@ -47,11 +48,18 @@ export default async function AnalysisResultPage({
         <Container narrow>
           {/* Header */}
           <header className="mb-10">
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <RiskBadge level={riskLevel} />
-              <span className="text-sm text-text-quaternary">
-                {formatDate(data.created_at)}
-              </span>
+            <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+              <div className="flex flex-wrap items-center gap-3">
+                <RiskBadge level={riskLevel} />
+                <span className="text-sm text-text-quaternary">
+                  {formatDate(data.created_at)}
+                </span>
+              </div>
+              <DownloadButton
+                fileName={data.file_name}
+                createdAt={data.created_at}
+                result={result}
+              />
             </div>
             <h1 className="text-2xl md:text-3xl font-bold text-text-primary break-all">
               {data.file_name}
