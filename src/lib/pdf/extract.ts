@@ -20,8 +20,9 @@ async function extractDirectly(buffer: ArrayBuffer): Promise<string> {
 }
 
 async function extractWithOcr(buffer: ArrayBuffer): Promise<string> {
-  const bytes = new Uint8Array(buffer);
-  const pdf = await getDocumentProxy(bytes);
+  // unpdf/pdf.js detaches the underlying ArrayBuffer it is handed, so each
+  // consumer gets its own copy to avoid "detached ArrayBuffer" failures.
+  const pdf = await getDocumentProxy(new Uint8Array(buffer.slice(0)));
   const numPages = Math.min(pdf.numPages, MAX_OCR_PAGES);
 
   let worker: Worker | null = null;
@@ -29,9 +30,13 @@ async function extractWithOcr(buffer: ArrayBuffer): Promise<string> {
     worker = await createWorker(["kor", "eng"]);
     const pageTexts: string[] = [];
     for (let pageNo = 1; pageNo <= numPages; pageNo++) {
-      const imageBuffer = await renderPageAsImage(bytes, pageNo, {
-        scale: OCR_SCALE,
-      });
+      const imageBuffer = await renderPageAsImage(
+        new Uint8Array(buffer.slice(0)),
+        pageNo,
+        {
+          scale: OCR_SCALE,
+        },
+      );
       const { data } = await worker.recognize(Buffer.from(imageBuffer));
       pageTexts.push(data.text);
     }
@@ -42,6 +47,10 @@ async function extractWithOcr(buffer: ArrayBuffer): Promise<string> {
 }
 
 export async function extractPdfText(buffer: ArrayBuffer): Promise<string> {
+  // Direct extraction detaches `buffer`, so keep an independent copy for the
+  // OCR fallback below.
+  const ocrBuffer = buffer.slice(0);
+
   const directText = await extractDirectly(buffer);
   if (directText.trim().length >= MIN_TEXT_LENGTH) {
     return directText;
@@ -51,7 +60,7 @@ export async function extractPdfText(buffer: ArrayBuffer): Promise<string> {
 
   let ocrText: string;
   try {
-    ocrText = await extractWithOcr(buffer);
+    ocrText = await extractWithOcr(ocrBuffer);
   } catch (err) {
     console.error("OCR error:", err);
     throw new OcrFailedError();
