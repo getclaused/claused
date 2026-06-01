@@ -2,11 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import Button from "@/components/ui/Button";
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -16,6 +19,10 @@ export default function Navigation() {
 
   const scrollTo = (id: string) => {
     setMenuOpen(false);
+    if (pathname !== "/") {
+      router.push(`/#${id}`);
+      return;
+    }
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -43,6 +50,18 @@ export default function Navigation() {
           >
             데모
           </button>
+          <Link
+            href="/compare"
+            className="text-sm text-text-tertiary hover:text-text-primary transition-colors"
+          >
+            비교
+          </Link>
+          <Link
+            href="/history"
+            className="text-sm text-text-tertiary hover:text-text-primary transition-colors"
+          >
+            내 분석 이력
+          </Link>
           <button
             onClick={() => scrollTo("features")}
             className="text-sm text-text-tertiary hover:text-text-primary transition-colors cursor-pointer"
@@ -92,6 +111,8 @@ export default function Navigation() {
       {menuOpen && (
         <div className="md:hidden bg-bg-primary border-b border-border px-5 pb-5 space-y-3">
           <button onClick={() => scrollTo("demo")} className="block w-full text-left text-sm py-2 text-text-secondary cursor-pointer">데모</button>
+          <Link href="/compare" className="block text-sm py-2 text-text-secondary" onClick={() => setMenuOpen(false)}>비교</Link>
+          <Link href="/history" className="block text-sm py-2 text-text-secondary" onClick={() => setMenuOpen(false)}>내 분석 이력</Link>
           <button onClick={() => scrollTo("features")} className="block w-full text-left text-sm py-2 text-text-secondary cursor-pointer">기능</button>
           <button onClick={() => scrollTo("pricing")} className="block w-full text-left text-sm py-2 text-text-secondary cursor-pointer">가격</button>
           <Link href="/terms" className="block text-sm py-2 text-text-secondary" onClick={() => setMenuOpen(false)}>약관</Link>

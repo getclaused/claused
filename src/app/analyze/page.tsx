@@ -186,6 +186,9 @@ export default function AnalyzePage() {
                 <p className="text-sm text-text-tertiary">
                   최대 10MB · PDF 파일만 지원
                 </p>
+                <p className="mt-1 text-xs text-text-quaternary">
+                  스캔된 PDF 도 자동 인식 (다소 시간 소요)
+                </p>
               </div>
             )}
 
@@ -193,11 +196,11 @@ export default function AnalyzePage() {
               <div>
                 <div className="mx-auto mb-5 h-14 w-14 rounded-full border-2 border-accent/30 border-t-accent animate-spin" />
                 <p className="text-base md:text-lg font-medium text-text-primary mb-2">
-                  {status === "uploading" ? "파일을 업로드하는 중..." : "AI 가 계약서를 검토하고 있습니다..."}
+                  {status === "uploading" ? "파일을 업로드하는 중..." : "AI 가 계약서를 분석하고 있습니다..."}
                 </p>
                 <p className="text-sm text-text-tertiary">
                   {status === "analyzing"
-                    ? "약 1분 소요됩니다. 잠시만 기다려 주세요."
+                    ? "최대 2~3분 소요될 수 있습니다. 스캔 PDF 인 경우 OCR 처리에 추가 시간이 필요합니다."
                     : fileName}
                 </p>
               </div>

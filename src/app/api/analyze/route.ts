@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod/v4";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { getAnthropicClient, CLAUDE_MODEL, SYSTEM_PROMPT } from "@/lib/anthropic/client";
-import { extractPdfText } from "@/lib/pdf/extract";
+import { extractPdfText, OcrFailedError } from "@/lib/pdf/extract";
 import type { AnalysisResult, RiskLevel } from "@/lib/supabase/database.types";
 
 export const runtime = "nodejs";
@@ -71,12 +71,18 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 2. Extract text
+  // 2. Extract text (with OCR fallback for scanned PDFs)
   let text: string;
   try {
     const buffer = await fileBlob.arrayBuffer();
     text = await extractPdfText(buffer);
   } catch (e) {
+    if (e instanceof OcrFailedError) {
+      return NextResponse.json(
+        { error: "OCR 도 실패했습니다. PDF 가 손상되었거나 텍스트가 없습니다." },
+        { status: 422 }
+      );
+    }
     console.error("PDF extract error:", e);
     return NextResponse.json(
       { error: "PDF 텍스트 추출에 실패했습니다." },
@@ -86,7 +92,7 @@ export async function POST(req: NextRequest) {
 
   if (text.trim().length < MIN_TEXT_LENGTH) {
     return NextResponse.json(
-      { error: "스캔된 PDF 로 보입니다. OCR 처리가 필요합니다." },
+      { error: "PDF 에서 충분한 텍스트를 추출하지 못했습니다." },
       { status: 422 }
     );
   }

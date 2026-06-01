@@ -145,12 +145,18 @@ export default async function AnalysisResultPage({
           )}
 
           {/* CTA */}
-          <div className="flex justify-center pt-6 border-t border-border">
+          <div className="flex flex-wrap justify-center gap-3 pt-6 border-t border-border">
             <Link
               href="/analyze"
               className="inline-flex items-center justify-center font-medium rounded-lg transition-all duration-[var(--duration-fast)] ease-[var(--ease-out)] h-13 px-8 text-base gap-2.5 bg-accent text-white hover:bg-accent-hover shadow-sm shadow-accent/20"
             >
               새 계약서 분석하기
+            </Link>
+            <Link
+              href="/history"
+              className="inline-flex items-center justify-center font-medium rounded-lg transition-all duration-[var(--duration-fast)] ease-[var(--ease-out)] h-13 px-8 text-base gap-2.5 bg-bg-primary text-text-primary border border-border hover:border-text-quaternary hover:bg-bg-secondary"
+            >
+              내 분석 이력
             </Link>
           </div>
         </Container>
