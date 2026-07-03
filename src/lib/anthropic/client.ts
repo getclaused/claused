@@ -14,7 +14,7 @@ export function getAnthropicClient(): Anthropic {
   return _client;
 }
 
-export const CLAUDE_MODEL = "claude-sonnet-4-20250514";
+export const CLAUDE_MODEL = "claude-sonnet-4-6";
 
 export const COMPARISON_SYSTEM_PROMPT = `당신은 계약서 비교 검토 전문가입니다. 두 개의 계약서 (A: 받은 초안, B: 협상 후 수정본) 를 비교 분석하세요.
 
