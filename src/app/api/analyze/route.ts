@@ -110,11 +110,12 @@ export async function POST(req: NextRequest) {
 
   // 3. Call Claude API
   let rawText: string;
+  let stopReason: string | null = null;
   try {
     const anthropic = getAnthropicClient();
     const message = await anthropic.messages.create({
       model: CLAUDE_MODEL,
-      max_tokens: 4096,
+      max_tokens: 16384,
       system: SYSTEM_PROMPT,
       messages: [
         {
@@ -124,6 +125,7 @@ export async function POST(req: NextRequest) {
       ],
     });
 
+    stopReason = message.stop_reason;
     rawText = message.content
       .filter((b): b is Extract<typeof b, { type: "text" }> => b.type === "text")
       .map((b) => b.text)
@@ -151,11 +153,16 @@ export async function POST(req: NextRequest) {
     }
     result = parsedJson;
   } catch (e) {
-    console.error("Claude JSON parse error:", e, "raw(500):", rawText.slice(0, 500));
-    return NextResponse.json(
-      { error: "AI 응답을 해석하지 못했습니다." },
-      { status: 500 }
+    console.error(
+      "Claude JSON parse error:", e,
+      "stop_reason:", stopReason,
+      "raw(500):", rawText.slice(0, 500)
     );
+    const userMessage =
+      stopReason === "max_tokens"
+        ? "계약서가 너무 길어 분석이 중단되었습니다. 더 짧은 문서로 다시 시도해 주세요."
+        : "AI 응답을 해석하지 못했습니다.";
+    return NextResponse.json({ error: userMessage }, { status: 500 });
   }
 
   // 5. Save to DB
