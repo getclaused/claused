@@ -24,6 +24,15 @@ function stripJsonFences(text: string): string {
   return trimmed;
 }
 
+function extractJsonObject(text: string): string {
+  const start = text.indexOf("{");
+  const end = text.lastIndexOf("}");
+  if (start === -1 || end === -1 || end < start) {
+    throw new Error("No JSON object boundaries found");
+  }
+  return text.slice(start, end + 1);
+}
+
 function isValidRiskLevel(value: unknown): value is RiskLevel {
   return value === "high" || value === "medium" || value === "low";
 }
@@ -115,11 +124,14 @@ export async function POST(req: NextRequest) {
       ],
     });
 
-    const firstBlock = message.content[0];
-    if (!firstBlock || firstBlock.type !== "text") {
-      throw new Error("Unexpected Claude response shape");
+    rawText = message.content
+      .filter((b): b is Extract<typeof b, { type: "text" }> => b.type === "text")
+      .map((b) => b.text)
+      .join("\n")
+      .trim();
+    if (!rawText) {
+      throw new Error("Unexpected Claude response shape: no text block");
     }
-    rawText = firstBlock.text;
   } catch (e) {
     console.error("Claude API error:", e);
     return NextResponse.json(
@@ -132,13 +144,14 @@ export async function POST(req: NextRequest) {
   let result: AnalysisResult;
   try {
     const cleaned = stripJsonFences(rawText);
-    const parsedJson: unknown = JSON.parse(cleaned);
+    const jsonBody = extractJsonObject(cleaned);
+    const parsedJson: unknown = JSON.parse(jsonBody);
     if (!isValidResult(parsedJson)) {
       throw new Error("Result shape mismatch");
     }
     result = parsedJson;
   } catch (e) {
-    console.error("Claude JSON parse error:", e, "raw:", rawText);
+    console.error("Claude JSON parse error:", e, "raw(500):", rawText.slice(0, 500));
     return NextResponse.json(
       { error: "AI 응답을 해석하지 못했습니다." },
       { status: 500 }
